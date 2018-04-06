@@ -1,0 +1,66 @@
+static void cir()
+        {
+            Console.WriteLine("write each new value on a new line in order of x1,y1,x2,y2,x3,y3 being in order piont A piont B and piont C");
+            float x1 = float.Parse(Console.ReadLine());
+            float y1 = float.Parse(Console.ReadLine());
+            float x2 = float.Parse(Console.ReadLine());
+            float y2 = float.Parse(Console.ReadLine());
+            float x3 = float.Parse(Console.ReadLine());
+            float y3 = float.Parse(Console.ReadLine());
+            //1----------------------
+            float abx = (x1 + x2) / 2;
+            float aby = (y1 + y2) / 2;
+            float acx = (x1 + x3) / 2;
+            float acy = (y1 + y3) / 2;
+            //---
+            float bcx = (x2 + x3) / 2;
+            float bcy = (y2 + y3) / 2;
+            Console.WriteLine("The midpionts are {0},{1} {2},{3} {4},{5}", abx, aby, acx, acy, bcx, bcy);
+            //2----------------------
+            float grad1 = (y1 - y2) / (x1 - x2);
+            float grad2 = (y1 - y3) / (x1 - x3);
+            //3----------------------
+            float grad11 = -1 / grad1;
+            float grad22 = -1 / grad2;
+            //---
+            float gray11 = aby + -grad11 * abx;
+            float gray22 = acy + -grad22 * acx;
+            Console.WriteLine("The perpendicular bisector of line AB is y = {0}x + {1}", grad11, gray11);
+            Console.WriteLine("The perpendicular bisector of line AC is y = {0}x + {1}", grad22, gray22);
+            //4----------------------
+            float midx = (gray11 - gray22) / (grad22 - grad11);
+            float midy = grad22 * midx + gray22;
+            //5----------------------
+            Console.WriteLine("The circumcenter is {0},{1}", midx, midy);
+
+            //6----------------------
+            float step1 = (x1 - midx) * (x1 - midx) + (y1 - midy) * (y1 - midy);
+            double step2 = Math.Sqrt(step1);
+            Console.WriteLine("The circles radius {0}", step2);
+
+            //7----------------------
+            bool run = true;
+            while (run == true)
+            {
+                Console.WriteLine("Do you want to check if a piont is outside the circumcenter? say 'yes' ");
+                string exl = Console.ReadLine();
+                if (exl == "yes") {
+                    Console.WriteLine("Enter the x and y value on seprate lines");
+                    float testx = float.Parse(Console.ReadLine());
+                    float testy = float.Parse(Console.ReadLine());
+                    double ans1 = Math.Sqrt((testx - midx) * (testx - midx) + (testy - midy) * (testy - midy));
+                    if(ans1 > step2) {
+                        Console.WriteLine("The piont is outside the circle");
+                        Console.WriteLine("The equation  it 'square root of (newx - midx)*(newx - midx) + (newy - midy)*(newy - midy)'");
+                    } else if(ans1 == step2) {
+                        Console.WriteLine("The piont is on the circumfrence of the circle");
+                        Console.WriteLine("The equation  it 'square root of (newx - midx)*(newx - midx) + (newy - midy)*(newy - midy)'");
+                    } else {
+                        Console.WriteLine("The piont is inside the circle");
+                        Console.WriteLine("The equation  it 'square root of (newx - midx)*(newx - midx) + (newy - midy)*(newy - midy)'");
+                    }
+                } else {
+                    run = false;
+                }
+            }
+        }
